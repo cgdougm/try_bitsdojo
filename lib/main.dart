@@ -4,14 +4,13 @@ import 'package:bitsdojo_window/bitsdojo_window.dart';
 void main() {
   runApp(const MyApp());
 
-   doWhenWindowReady(() {
+  doWhenWindowReady(() {
     // BitsDojo Window Settings
-     const initialSize = Size(1280, 720);
-     appWindow.minSize = initialSize;
-     appWindow.size = initialSize;
-     appWindow.alignment = Alignment.center;
-     appWindow.show();
-   });
+    appWindow.minSize = Size(320, 320);
+    appWindow.size = Size(1280, 720);
+    appWindow.alignment = Alignment.center;
+    appWindow.show();
+  });
 }
 
 class MyApp extends StatelessWidget {
@@ -20,41 +19,18 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(body: Row(
-        children: [
-          LeftSide(),
-          RightSide(),
-          ],
-        ),
+      home: Scaffold(
+        body: WindowWidget(),
       ),
     );
   }
 }
 
-const sidebarColor = Color(0xFFF6A00C);
 
-class LeftSide extends StatelessWidget {
-  const LeftSide({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-        width: 200,
-        child: Container(
-            color: const Color.fromARGB(255, 100, 69, 166),
-            child: Column(
-              children: [
-                WindowTitleBarBox(child: MoveWindow()),
-                Expanded(child: Container())
-              ],
-            )));
-  }
-}
+class WindowWidget extends StatelessWidget {
+  const WindowWidget({super.key});
 
-const backgroundStartColor = Color.fromARGB(255, 76, 0, 255);
-const backgroundEndColor = Color.fromARGB(255, 84, 214, 240);
 
-class RightSide extends StatelessWidget {
-  const RightSide({super.key});
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -63,13 +39,61 @@ class RightSide extends StatelessWidget {
           gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: [backgroundStartColor, backgroundEndColor],
-              stops: [0.0, 1.0]),
+              colors: [
+                Color.fromARGB(255, 42, 36, 48),
+                Color.fromARGB(255, 87, 115, 121)
+              ],
+              stops: [
+                0.1,
+                1.0
+              ]),
         ),
         child: Column(children: [
           WindowTitleBarBox(
-            child: Row(
-              children: [Expanded(child: MoveWindow()), const WindowButtons()],
+            child: Container(
+              color: const Color.fromARGB(30, 0, 0, 0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: MoveWindow(
+                      child: const Padding(
+                        padding: EdgeInsets.fromLTRB(3, 0, 3, 2),
+                        child: Row(children: [
+                          IconButton(
+                            icon: Icon(
+                              Icons.menu_rounded,
+                              color: Color.fromARGB(180, 157, 140, 217),
+                              size: 18,
+                            ),
+                            onPressed: null,
+                          ),
+                          Baseline(
+                            baseline: 22,
+                            baselineType: TextBaseline.alphabetic,
+                            child: Text("custom",
+                                  style: TextStyle(
+                                      fontFamily: 'HeptaSlab',
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                      color: Color.fromARGB(180, 157, 140, 217),
+                                      letterSpacing: -1)),
+                          ),
+                          Spacer(),
+                          IconButton(
+                            icon: Icon(
+                              Icons.sunny,
+                              color: Color.fromARGB(255, 88, 44, 209),
+                              size: 15,
+                            ),
+                            onPressed: null,
+                          ),
+                        ]),
+                      ),
+                    ),
+                  ),
+                  const WindowButtons(),
+                ],
+              ),
             ),
           )
         ]),
@@ -79,9 +103,9 @@ class RightSide extends StatelessWidget {
 }
 
 final buttonColors = WindowButtonColors(
-    mouseOver: const Color.fromARGB(255, 161, 98, 238),
+    mouseOver: const Color.fromARGB(255, 117, 13, 245),
     mouseDown: const Color.fromARGB(255, 157, 140, 217),
-    iconNormal: const Color.fromARGB(255, 169, 146, 231),
+    iconNormal: const Color.fromARGB(255, 88, 44, 209),
     iconMouseOver: Colors.white);
 
 class WindowButtons extends StatelessWidget {
